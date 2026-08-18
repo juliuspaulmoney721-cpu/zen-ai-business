@@ -1,600 +1,763 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Pixora Social App</title>
+<title>Pixora</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
 
-    body {
-      background: #050505;
-      color: white;
-    }
+body {
+  background: #050505;
+  color: white;
+  padding-bottom: 75px;
+}
 
-    /* HEADER */
-    .header {
-      height: 70px;
-      border-bottom: 1px solid #222;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 25px;
-      position: sticky;
-      top: 0;
-      background: rgba(5, 5, 5, 0.96);
-      z-index: 10;
-    }
+/* HEADER */
 
-    .logo {
-      font-size: 32px;
-      font-weight: bold;
-      color: #c44cff;
-      font-family: Georgia, serif;
-    }
+.header {
+  height: 70px;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  position: sticky;
+  top: 0;
+  background: #050505;
+  z-index: 10;
+}
 
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 25px;
-    }
+.logo {
+  color: #c44cff;
+  font-size: 32px;
+  font-weight: bold;
+  font-family: Georgia, serif;
+}
 
-    .nav button {
-      background: none;
-      border: none;
-      color: #aaa;
-      font-size: 25px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
 
-    .nav button:hover {
-      color: #c44cff;
-      transform: scale(1.1);
-    }
+.nav button {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 24px;
+  cursor: pointer;
+}
 
-    .profile {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: #170d20;
-      border: 2px solid #261c2c;
-      color: #c44cff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-    }
+.nav button:hover {
+  color: #c44cff;
+}
 
-    /* MAIN */
-    .container {
-      max-width: 700px;
-      margin: auto;
-    }
+.profile {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #190d22;
+  border: 2px solid #2b2030;
+  color: #c44cff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
 
-    /* STORIES */
-    .stories {
-      display: flex;
-      gap: 18px;
-      padding: 25px 15px;
-      border-bottom: 1px solid #222;
-      overflow-x: auto;
-    }
+/* MAIN */
 
-    .story {
-      min-width: 85px;
-      text-align: center;
-      color: #aaa;
-    }
+.container {
+  max-width: 700px;
+  margin: auto;
+}
 
-    .story-circle {
-      width: 78px;
-      height: 78px;
-      border-radius: 50%;
-      border: 3px solid #c44cff;
-      background: #130d18;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: auto;
-      font-size: 24px;
-      color: #c44cff;
-    }
+/* STORIES */
 
-    .story-name {
-      margin-top: 8px;
-      font-size: 13px;
-    }
+.stories {
+  display: flex;
+  gap: 18px;
+  padding: 22px 15px;
+  border-bottom: 1px solid #222;
+  overflow-x: auto;
+}
 
-    .add-story {
-      position: relative;
-    }
+.story {
+  min-width: 80px;
+  text-align: center;
+  color: #aaa;
+}
 
-    .plus {
-      position: absolute;
-      bottom: 0;
-      right: 2px;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      background: #c44cff;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-      border: 2px solid #050505;
-    }
+.story-circle {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 3px solid #c44cff;
+  background: #130d18;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  color: #c44cff;
+  font-size: 22px;
+  font-weight: bold;
+}
 
-    /* POST */
-    .post {
-      margin: 25px 15px;
-      background: #0c0c0c;
-      border: 1px solid #292929;
-      border-radius: 20px;
-      overflow: hidden;
-    }
+.story-name {
+  margin-top: 7px;
+  font-size: 13px;
+}
 
-    .post-header {
-      display: flex;
-      align-items: center;
-      padding: 18px;
-      gap: 12px;
-    }
+.add-story {
+  position: relative;
+}
 
-    .avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #190c22;
-      color: #c44cff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
+.plus {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #c44cff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .username {
-      font-weight: bold;
-      font-size: 18px;
-    }
+/* CREATE */
 
-    .time {
-      color: #777;
-      font-size: 14px;
-      margin-top: 4px;
-    }
+.create-box {
+  margin: 20px 15px;
+  padding: 20px;
+  border: 1px solid #292929;
+  border-radius: 16px;
+  background: #0c0c0c;
+}
 
-    .post-image {
-      width: 100%;
-      display: block;
-      background: white;
-    }
+.create-box h3 {
+  margin-bottom: 15px;
+}
 
-    .post-actions {
-      display: flex;
-      gap: 25px;
-      padding: 18px;
-    }
+textarea {
+  width: 100%;
+  min-height: 80px;
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: white;
+  padding: 12px;
+  resize: none;
+  outline: none;
+}
 
-    .action {
-      border: none;
-      background: none;
-      color: #aaa;
-      font-size: 28px;
-      cursor: pointer;
-    }
+textarea:focus {
+  border-color: #c44cff;
+}
 
-    .action:hover {
-      color: #c44cff;
-    }
+.file-label {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 15px;
+  border: 1px solid #444;
+  border-radius: 10px;
+  color: #ccc;
+  cursor: pointer;
+}
 
-    .liked {
-      color: #ff3b81 !important;
-    }
+.file-label:hover {
+  border-color: #c44cff;
+  color: #c44cff;
+}
 
-    .likes {
-      padding: 0 20px 10px;
-      font-weight: bold;
-    }
+#imageInput {
+  display: none;
+}
 
-    .caption {
-      padding: 0 20px 20px;
-      color: #ddd;
-    }
+.preview {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  margin-top: 15px;
+  display: none;
+  border-radius: 10px;
+  background: #111;
+}
 
-    /* CREATE */
-    .create-box {
-      margin: 20px 15px;
-      padding: 20px;
-      border: 1px solid #292929;
-      border-radius: 15px;
-      background: #0c0c0c;
-    }
+.post-button {
+  margin-top: 12px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: 20px;
+  background: #c44cff;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .create-box h3 {
-      margin-bottom: 15px;
-    }
+/* POSTS */
 
-    textarea {
-      width: 100%;
-      min-height: 80px;
-      resize: none;
-      background: #151515;
-      color: white;
-      border: 1px solid #333;
-      border-radius: 10px;
-      padding: 12px;
-      outline: none;
-    }
+#feed {
+  padding-bottom: 20px;
+}
 
-    .post-button {
-      margin-top: 10px;
-      padding: 10px 22px;
-      border: none;
-      border-radius: 20px;
-      background: #c44cff;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.post {
+  margin: 20px 15px;
+  background: #0c0c0c;
+  border: 1px solid #292929;
+  border-radius: 18px;
+  overflow: hidden;
+}
 
-    /* BOTTOM NAV */
-    .bottom-nav {
-      display: none;
-    }
+.post-header {
+  display: flex;
+  align-items: center;
+  padding: 17px;
+  gap: 12px;
+}
 
-    /* MOBILE */
-    @media (max-width: 600px) {
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: #190d22;
+  color: #c44cff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
 
-      .header {
-        padding: 0 15px;
-      }
+.username {
+  font-weight: bold;
+}
 
-      .logo {
-        font-size: 27px;
-      }
+.time {
+  color: #777;
+  font-size: 13px;
+  margin-top: 4px;
+}
 
-      .nav {
-        gap: 12px;
-      }
+.post-image {
+  width: 100%;
+  display: block;
+  max-height: 650px;
+  object-fit: cover;
+}
 
-      .nav button {
-        font-size: 21px;
-      }
+.post-text {
+  padding: 15px 18px 5px;
+  line-height: 1.5;
+}
 
-      .nav .desktop-only {
-        display: none;
-      }
+.actions {
+  display: flex;
+  gap: 22px;
+  padding: 15px 18px 5px;
+}
 
-      .container {
-        width: 100%;
-      }
+.action {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 27px;
+  cursor: pointer;
+}
 
-      .post {
-        margin: 18px 8px;
-        border-radius: 15px;
-      }
+.action:hover {
+  color: #c44cff;
+}
 
-      .bottom-nav {
-        display: flex;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 65px;
-        background: #090909;
-        border-top: 1px solid #222;
-        justify-content: space-around;
-        align-items: center;
-        z-index: 20;
-      }
+.liked {
+  color: #ff3b81 !important;
+}
 
-      .bottom-nav button {
-        background: none;
-        border: none;
-        color: #888;
-        font-size: 23px;
-      }
+.likes {
+  padding: 3px 18px 12px;
+  font-weight: bold;
+}
 
-      .bottom-nav button.active {
-        color: #c44cff;
-      }
+.comment-box {
+  display: flex;
+  padding: 0 18px 18px;
+  gap: 8px;
+}
 
-      body {
-        padding-bottom: 65px;
-      }
-    }
-  </style>
+.comment-input {
+  flex: 1;
+  background: #151515;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 10px 14px;
+  color: white;
+  outline: none;
+}
+
+.comment-button {
+  border: none;
+  background: #c44cff;
+  color: white;
+  border-radius: 20px;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
+.comments {
+  padding: 0 18px 15px;
+  color: #bbb;
+  font-size: 14px;
+}
+
+/* EMPTY */
+
+.empty {
+  text-align: center;
+  color: #777;
+  padding: 40px 20px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  background: #090909;
+  border-top: 1px solid #222;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 20;
+}
+
+.bottom-nav button {
+  border: none;
+  background: none;
+  color: #888;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.bottom-nav button.active {
+  color: #c44cff;
+}
+
+@media (min-width: 700px) {
+
+  .bottom-nav {
+    display: none;
+  }
+
+  body {
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .header {
+    padding: 0 12px;
+  }
+
+  .logo {
+    font-size: 28px;
+  }
+
+  .nav {
+    gap: 10px;
+  }
+
+  .nav button {
+    font-size: 20px;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .post {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+  .create-box {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
+<header class="header">
 
-    <div class="logo">
-      Pixora
-    </div>
-
-    <nav class="nav">
-      <button onclick="home()">⌂</button>
-      <button onclick="search()">⌕</button>
-      <button onclick="videos()">▣</button>
-      <button onclick="create()">⊞</button>
-      <button class="desktop-only">▢</button>
-      <button class="desktop-only">♧</button>
-
-      <div class="profile">
-        J
-      </div>
-    </nav>
-
-  </header>
-
-
-  <main class="container">
-
-    <!-- STORIES -->
-    <section class="stories">
-
-      <div class="story">
-        <div class="story-circle add-story">
-          J
-          <div class="plus">+</div>
-        </div>
-
-        <div class="story-name">
-          Your story
-        </div>
-      </div>
-
-      <div class="story">
-        <div class="story-circle">
-          T
-        </div>
-
-        <div class="story-name">
-          Thank God
-        </div>
-      </div>
-
-      <div class="story">
-        <div class="story-circle">
-          A
-        </div>
-
-        <div class="story-name">
-          Alex
-        </div>
-      </div>
-
-      <div class="story">
-        <div class="story-circle">
-          M
-        </div>
-
-        <div class="story-name">
-          Maria
-        </div>
-      </div>
-
-    </section>
-
-
-    <!-- CREATE POST -->
-    <section class="create-box" id="createBox">
-
-      <h3>Create a post</h3>
-
-      <textarea
-        id="postText"
-        placeholder="What's on your mind?"
-      ></textarea>
-
-      <button
-        class="post-button"
-        onclick="publishPost()"
-      >
-        Publish
-      </button>
-
-    </section>
-
-
-    <!-- POST -->
-    <article class="post">
-
-      <div class="post-header">
-
-        <div class="avatar">
-          T
-        </div>
-
-        <div>
-          <div class="username">
-            Thank God
-          </div>
-
-          <div class="time">
-            14 days ago
-          </div>
-        </div>
-
-      </div>
-
-
-      <!-- Replace this image with your own image -->
-      <img
-        class="post-image"
-        src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80"
-        alt="T-shirt"
-      />
-
-
-      <div class="post-actions">
-
-        <button
-          class="action"
-          onclick="likePost(this)"
-        >
-          ♡
-        </button>
-
-        <button
-          class="action"
-          onclick="commentPost()"
-        >
-          ♡
-        </button>
-
-      </div>
-
-
-      <div class="likes" id="likes">
-        1 like
-      </div>
-
-      <div class="caption">
-        I love my wife ❤️
-      </div>
-
-    </article>
-
-  </main>
-
-
-  <!-- MOBILE BOTTOM NAV -->
-  <div class="bottom-nav">
-
-    <button class="active">
-      ⌂
-    </button>
-
-    <button>
-      ⌕
-    </button>
-
-    <button onclick="create()">
-      ⊞
-    </button>
-
-    <button>
-      ♡
-    </button>
-
-    <button>
-      J
-    </button>
-
+  <div class="logo">
+    Pixora
   </div>
 
+  <nav class="nav">
 
-  <script>
+    <button onclick="goHome()">⌂</button>
 
-    let likes = 1;
+    <button onclick="focusSearch()">⌕</button>
 
-    function likePost(button) {
+    <button onclick="scrollToCreate()">⊞</button>
 
-      button.classList.toggle("liked");
+    <button class="desktop-only">▢</button>
 
-      if (button.classList.contains("liked")) {
-        likes++;
-        button.innerHTML = "♥";
-      } else {
-        likes--;
-        button.innerHTML = "♡";
-      }
+    <button class="desktop-only">♧</button>
 
-      document.getElementById("likes").innerText =
-        likes + (likes === 1 ? " like" : " likes");
-    }
+    <button onclick="logout()">↪</button>
+
+    <div class="profile" id="profileLetter">
+      J
+    </div>
+
+  </nav>
+
+</header>
 
 
-    function commentPost() {
+<main class="container">
 
-      const comment = prompt(
-        "Write your comment:"
-      );
+  <!-- STORIES -->
 
-      if (comment) {
-        alert(
-          "Comment posted: " + comment
+  <section class="stories">
+
+    <div class="story">
+
+      <div class="story-circle add-story">
+
+        <span id="storyLetter">
+          J
+        </span>
+
+        <div class="plus">
+          +
+        </div>
+
+      </div>
+
+      <div class="story-name">
+        Your story
+      </div>
+
+    </div>
+
+
+    <div class="story">
+
+      <div class="story-circle">
+        T
+      </div>
+
+      <div class="story-name">
+        Thank God
+      </div>
+
+    </div>
+
+
+    <div class="story">
+
+      <div class="story-circle">
+        A
+      </div>
+
+      <div class="story-name">
+        Alex
+      </div>
+
+    </div>
+
+
+    <div class="story">
+
+      <div class="story-circle">
+        M
+      </div>
+
+      <div class="story-name">
+        Maria
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CREATE POST -->
+
+  <section
+    class="create-box"
+    id="createBox"
+  >
+
+    <h3>
+      Create a post
+    </h3>
+
+    <textarea
+      id="postText"
+      placeholder="What's on your mind?"
+    ></textarea>
+
+
+    <label
+      for="imageInput"
+      class="file-label"
+    >
+      🖼️ Add photo
+    </label>
+
+    <input
+      id="imageInput"
+      type="file"
+      accept="image/*"
+      onchange="previewImage(event)"
+    >
+
+
+    <img
+      id="preview"
+      class="preview"
+      alt="Preview"
+    >
+
+
+    <br>
+
+    <button
+      class="post-button"
+      onclick="publishPost()"
+    >
+      Publish
+    </button>
+
+  </section>
+
+
+  <!-- FEED -->
+
+  <section id="feed"></section>
+
+</main>
+
+
+<!-- MOBILE NAV -->
+
+<nav class="bottom-nav">
+
+  <button
+    class="active"
+    onclick="goHome()"
+  >
+    ⌂
+  </button>
+
+  <button onclick="focusSearch()">
+    ⌕
+  </button>
+
+  <button onclick="scrollToCreate()">
+    ⊞
+  </button>
+
+  <button>
+    ♡
+  </button>
+
+  <button onclick="logout()">
+    ↪
+  </button>
+
+</nav>
+
+
+<script>
+
+/* GET USER */
+
+let user =
+  JSON.parse(
+    localStorage.getItem("pixoraUser")
+  );
+
+
+/*
+  If there is no account,
+  send the visitor to signup.
+*/
+
+if (!user) {
+
+  window.location.href =
+    "signup.html";
+
+}
+
+
+/* USER DISPLAY */
+
+if (user) {
+
+  const letter =
+    user.username
+      ? user.username.charAt(0).toUpperCase()
+      : user.name.charAt(0).toUpperCase();
+
+  document.getElementById(
+    "profileLetter"
+  ).textContent = letter;
+
+  document.getElementById(
+    "storyLetter"
+  ).textContent = letter;
+
+}
+
+
+/* IMAGE PREVIEW */
+
+function previewImage(event) {
+
+  const file =
+    event.target.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  const reader =
+    new FileReader();
+
+  reader.onload =
+    function(e) {
+
+      const preview =
+        document.getElementById("preview");
+
+      preview.src =
+        e.target.result;
+
+      preview.style.display =
+        "block";
+
+    };
+
+  reader.readAsDataURL(file);
+
+}
+
+
+/* CREATE POST */
+
+function publishPost() {
+
+  const text =
+    document
+      .getElementById("postText")
+      .value
+      .trim();
+
+  const imageInput =
+    document.getElementById("imageInput");
+
+  const file =
+    imageInput.files[0];
+
+
+  if (!text && !file) {
+
+    alert(
+      "Write something or add a photo."
+    );
+
+    return;
+
+  }
+
+
+  if (file) {
+
+    const reader =
+      new FileReader();
+
+    reader.onload =
+      function(e) {
+
+        savePost(
+          text,
+          e.target.result
         );
-      }
 
-    }
+      };
 
+    reader.readAsDataURL(file);
 
-    function publishPost() {
+  } else {
 
-      const text =
-        document.getElementById("postText").value;
+    savePost(
+      text,
+      null
+    );
 
-      if (!text.trim()) {
+  }
 
-        alert(
-          "Please write something first."
-        );
-
-        return;
-      }
-
-      alert(
-        "Post published successfully!"
-      );
-
-      document.getElementById("postText").value = "";
-
-    }
+}
 
 
-    function create() {
+/* SAVE POST */
 
-      document
-        .getElementById("createBox")
-        .scrollIntoView({
-          behavior: "smooth"
-        });
+function savePost(text, image) {
 
-    }
-
-
-    function home() {
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-
-    }
+  const posts =
+    JSON.parse(
+      localStorage.getItem(
+        "pixoraPosts"
+      )
+    ) || [];
 
 
-    function search() {
+  const post = {
 
-      alert(
-        "Search feature coming next."
-      );
+    id: Date.now(),
 
-    }
+    username:
+      user.username || user.name,
+
+    text: text,
+
+    image: image,
+
+    likes: 0,
+
+    comments: [],
+
+    time: "Just now"
+
+  };
 
 
-    function videos() {
+  posts.unshift(post);
 
-      alert(
-        "Video section coming next."
-      );
 
-    }
+  localStorage.setItem(
+    "pixoraPosts",
+    JSON.stringify(posts)
+  );
 
-  </script>
 
-</body>
-</html>
+  document.get
