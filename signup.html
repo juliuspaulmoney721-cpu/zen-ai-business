@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pixora - Create Account</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #050505;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .signup-container {
+      width: 100%;
+      max-width: 420px;
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      border-radius: 20px;
+      padding: 35px 25px;
+    }
+
+    .logo {
+      text-align: center;
+      color: #c44cff;
+      font-size: 42px;
+      font-weight: bold;
+      font-family: Georgia, serif;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 14px;
+      background: #171717;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .input:focus {
+      border-color: #c44cff;
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .password-box .input {
+      padding-right: 50px;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+    }
+
+    .signup-button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 8px;
+      border: none;
+      border-radius: 10px;
+      background: #c44cff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .signup-button:hover {
+      opacity: 0.85;
+    }
+
+    .message {
+      display: none;
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    .error {
+      background: #351414;
+      color: #ff6b6b;
+    }
+
+    .success {
+      background: #14351d;
+      color: #6bff8a;
+    }
+
+    .login {
+      text-align: center;
+      margin-top: 25px;
+      color: #888;
+    }
+
+    .login a {
+      color: #c44cff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .terms {
+      text-align: center;
+      color: #666;
+      font-size: 12px;
+      margin-top: 18px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="signup-container">
+
+    <div class="logo">
+      Pixora
+    </div>
+
+    <p class="subtitle">
+      Create your Pixora account
+    </p>
+
+    <div id="errorMessage" class="message error"></div>
+
+    <div id="successMessage" class="message success"></div>
+
+    <input
+      class="input"
+      id="name"
+      type="text"
+      placeholder="Full name"
+      autocomplete="name"
+    >
+
+    <input
+      class="input"
+      id="username"
+      type="text"
+      placeholder="Username"
+      autocomplete="username"
+    >
+
+    <input
+      class="input"
+      id="email"
+      type="email"
+      placeholder="Email address"
+      autocomplete="email"
+    >
+
+    <div class="password-box">
+
+      <input
+        class="input"
+        id="password"
+        type="password"
+        placeholder="Password"
+        autocomplete="new-password"
+      >
+
+      <button
+        type="button"
+        class="show-password"
+        onclick="togglePassword()"
+      >
+        Show
+      </button>
+
+    </div>
+
+    <div class="password-box">
+
+      <input
+        class="input"
+        id="confirmPassword"
+        type="password"
+        placeholder="Confirm password"
+        autocomplete="new-password"
+      >
+
+    </div>
+
+    <button
+      class="signup-button"
+      onclick="createAccount()"
+    >
+      Create Account
+    </button>
+
+    <div class="login">
+      Already have an account?
+      <a href="login.html">Log in</a>
+    </div>
+
+    <p class="terms">
+      By creating an account, you agree to use Pixora responsibly.
+    </p>
+
+  </div>
+
+
+  <script>
+
+    function showError(message) {
+
+      const error =
+        document.getElementById("errorMessage");
+
+      const success =
+        document.getElementById("successMessage");
+
+      success.style.display = "none";
+
+      error.textContent = message;
+      error.style.display = "block";
+    }
+
+
+    function showSuccess(message) {
+
+      const error =
+        document.getElementById("errorMessage");
+
+      const success =
+        document.getElementById("successMessage");
+
+      error.style.display = "none";
+
+      success.textContent = message;
+      success.style.display = "block";
+    }
+
+
+    function createAccount() {
+
+      const name =
+        document.getElementById("name").value.trim();
+
+      const username =
+        document.getElementById("username").value.trim();
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+      if (!name || !username || !email || !password || !confirmPassword) {
+
+        showError("Please fill in all fields.");
+
+        return;
+      }
+
+
+      if (username.length < 3) {
+
+        showError("Username must be at least 3 characters.");
+
+        return;
+      }
+
+
+      if (password.length < 6) {
+
+        showError("Password must be at least 6 characters.");
+
+        return;
+      }
+
+
+      if (password !== confirmPassword) {
+
+        showError("Passwords do not match.");
+
+        return;
+      }
+
+
+      const user = {
+
+        name: name,
+
+        username: username,
+
+        email: email,
+
+        password: password
+
+      };
+
+
+      /*
+        TEMPORARY ACCOUNT STORAGE
+
+        This is only for testing.
+        Later we will replace this
+        with a real database and
+        secure authentication.
+      */
+
+      localStorage.setItem(
+        "pixoraUser",
+        JSON.stringify(user)
+      );
+
+
+      localStorage.setItem(
+        "pixoraLoggedIn",
+        "true"
+      );
+
+
+      showSuccess(
+        "Account created! Opening Pixora..."
+      );
+
+
+      setTimeout(function() {
+
+        window.location.href = "index.html";
+
+      }, 1200);
+
+    }
+
+
+    function togglePassword() {
+
+      const password =
+        document.getElementById("password");
+
+      const button =
+        document.querySelector(".show-password");
+
+
+      if (password.type === "password") {
+
+        password.type = "text";
+
+        button.textContent = "Hide";
+
+      } else {
+
+        password.type = "password";
+
+        button.textContent = "Show";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
