@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pixora - Login</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #050505;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+      background: #0d0d0d;
+      border: 1px solid #292929;
+      border-radius: 20px;
+      padding: 35px 25px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .logo {
+      text-align: center;
+      color: #c44cff;
+      font-size: 42px;
+      font-weight: bold;
+      font-family: Georgia, serif;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #888;
+      margin-bottom: 28px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: #171717;
+      border: 1px solid #333;
+      border-radius: 10px;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .input:focus {
+      border-color: #c44cff;
+    }
+
+    .password-box {
+      position: relative;
+    }
+
+    .password-box .input {
+      padding-right: 65px;
+    }
+
+    .show-button {
+      position: absolute;
+      right: 12px;
+      top: 14px;
+      border: none;
+      background: transparent;
+      color: #c44cff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .forgot {
+      display: block;
+      text-align: right;
+      color: #c44cff;
+      font-size: 14px;
+      text-decoration: none;
+      margin: -3px 0 20px;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background: #c44cff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-button:hover {
+      opacity: 0.85;
+    }
+
+    .message {
+      display: none;
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .error {
+      background: #351414;
+      color: #ff6b6b;
+    }
+
+    .success {
+      background: #14351d;
+      color: #6bff8a;
+    }
+
+    .signup {
+      text-align: center;
+      margin-top: 25px;
+      color: #888;
+    }
+
+    .signup a {
+      color: #c44cff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container">
+
+    <div class="logo">
+      Pixora
+    </div>
+
+    <p class="subtitle">
+      Welcome back to Pixora
+    </p>
+
+    <div id="errorMessage" class="message error"></div>
+
+    <div id="successMessage" class="message success"></div>
+
+    <input
+      class="input"
+      id="email"
+      type="email"
+      placeholder="Email address"
+      autocomplete="email"
+    >
+
+    <div class="password-box">
+
+      <input
+        class="input"
+        id="password"
+        type="password"
+        placeholder="Password"
+        autocomplete="current-password"
+      >
+
+      <button
+        class="show-button"
+        type="button"
+        onclick="togglePassword()"
+      >
+        Show
+      </button>
+
+    </div>
+
+    <a href="#" class="forgot" onclick="forgotPassword()">
+      Forgot password?
+    </a>
+
+    <button
+      class="login-button"
+      onclick="login()"
+    >
+      Log In
+    </button>
+
+    <div class="signup">
+      Don't have an account?
+      <a href="signup.html">
+        Create account
+      </a>
+    </div>
+
+  </div>
+
+
+  <script>
+
+    function showError(message) {
+
+      const error =
+        document.getElementById("errorMessage");
+
+      const success =
+        document.getElementById("successMessage");
+
+      success.style.display = "none";
+
+      error.textContent = message;
+      error.style.display = "block";
+    }
+
+
+    function showSuccess(message) {
+
+      const error =
+        document.getElementById("errorMessage");
+
+      const success =
+        document.getElementById("successMessage");
+
+      error.style.display = "none";
+
+      success.textContent = message;
+      success.style.display = "block";
+    }
+
+
+    function login() {
+
+      const email =
+        document.getElementById("email").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+
+      if (!email || !password) {
+
+        showError(
+          "Please enter your email and password."
+        );
+
+        return;
+      }
+
+
+      /*
+        TEMPORARY LOGIN
+
+        This checks the account created
+        by signup.html.
+
+        Later we will replace this
+        with real secure authentication.
+      */
+
+      const savedUser =
+        localStorage.getItem("pixoraUser");
+
+
+      if (!savedUser) {
+
+        showError(
+          "No Pixora account found. Please create an account first."
+        );
+
+        return;
+      }
+
+
+      const user =
+        JSON.parse(savedUser);
+
+
+      if (
+        email.toLowerCase() !==
+        user.email.toLowerCase()
+      ) {
+
+        showError(
+          "Incorrect email or password."
+        );
+
+        return;
+      }
+
+
+      if (password !== user.password) {
+
+        showError(
+          "Incorrect email or password."
+        );
+
+        return;
+      }
+
+
+      localStorage.setItem(
+        "pixoraLoggedIn",
+        "true"
+      );
+
+
+      showSuccess(
+        "Login successful! Opening Pixora..."
+      );
+
+
+      setTimeout(function() {
+
+        window.location.href = "index.html";
+
+      }, 1000);
+
+    }
+
+
+    function togglePassword() {
+
+      const password =
+        document.getElementById("password");
+
+      const button =
+        document.querySelector(".show-button");
+
+
+      if (password.type === "password") {
+
+        password.type = "text";
+
+        button.textContent = "Hide";
+
+      } else {
+
+        password.type = "password";
+
+        button.textContent = "Show";
+
+      }
+
+    }
+
+
+    function forgotPassword() {
+
+      alert(
+        "Password recovery will be added when we connect Pixora to real authentication."
+      );
+
+    }
+
+  </script>
+
+</body>
+</html>
